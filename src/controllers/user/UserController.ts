@@ -44,8 +44,13 @@ export class UserController {
       const user = await userRepository.findOne({
         where: { username: username },
       })
+      if (!user) {
+        return res
+          .status(404)
+          .json({ auth: false, message: "Usuário não encontrado" })
+      }
       if (user.username != username || user.password != password) {
-        return res.status(400).json({ auth: false, message: "falha" })
+        return res.status(401).json({ auth: false, message: "falha" })
       }
       return res.status(200).json({ auth: true, message: "sucesso" })
     } catch (error) {
