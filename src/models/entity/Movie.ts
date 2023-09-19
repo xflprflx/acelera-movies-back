@@ -52,7 +52,7 @@ export class Movie {
       referencedColumnName: "id",
     },
   })
-  actores: Actor[]
+  actors: Actor[]
 
   @Column({ name: "resume", type: "text" })
   resume: string

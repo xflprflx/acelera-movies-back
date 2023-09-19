@@ -1,6 +1,7 @@
 import { User } from "@models/entity/User"
 import { Request, Response } from "express"
 import { getRepository } from "typeorm"
+import crypto from "crypto"
 
 export class UserController {
   async createUser(req: Request, res: Response) {
@@ -13,10 +14,14 @@ export class UserController {
     }
 
     try {
+      const hashedPassword = crypto
+        .createHash("md5")
+        .update(password)
+        .digest("hex")
       const userRepository = getRepository(User)
       const newUser = userRepository.create({
         username,
-        password,
+        password: hashedPassword,
       })
       await userRepository.save(newUser)
       return res.status(201).json(newUser)
