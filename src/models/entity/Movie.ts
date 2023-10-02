@@ -58,7 +58,7 @@ export class Movie {
   resume: string
 
   @Column({ name: "awards", type: "varchar" })
-  awards: String
+  awards: string
 
   @Column({ name: "note", type: "int" })
   note: number
